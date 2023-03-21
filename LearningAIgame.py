@@ -23,6 +23,23 @@ class LearningAI:
         with open(self.data_file, "w") as f:
             f.write(",".join(map(str, self.choices)))
 
+    def print_choice_frequencies(self):
+        choice_counts = {1: 0, 2: 0, 3: 0}
+        for choice in self.choices:
+            choice_counts[choice] += 1
+
+        total_choices = len(self.choices)
+        print("AI choice frequencies:")
+        print(
+            f"Rock: {choice_counts[1]} ({choice_counts[1] / total_choices * 100:.2f}%)"
+        )
+        print(
+            f"Paper: {choice_counts[2]} ({choice_counts[2] / total_choices * 100:.2f}%)"
+        )
+        print(
+            f"Scissors: {choice_counts[3]} ({choice_counts[3] / total_choices * 100:.2f}%)"
+        )
+
 
 class LearningAIGame:
     def __init__(self):
@@ -41,6 +58,9 @@ class LearningAIGame:
             print(f"AI chose {choice_mapping[ai_choice]}")
 
             self.ai.learn_from_choice(ai_choice)
+
+            # Print choice frequencies
+            self.ai.print_choice_frequencies()
 
             if choice == ai_choice:
                 print("Tie!")
